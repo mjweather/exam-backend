@@ -1,13 +1,20 @@
 package com.example.examangular.service;
 
+
+
 import com.example.examangular.model.User;
 import com.example.examangular.model.UserRole;
 
 import java.util.Set;
 
 public interface UserService {
+
+    //creating user
     public User createUser(User user, Set<UserRole> userRoles) throws Exception;
-    public User getUser(String userName);
-    public void deleteuser(Long Id);
-    public User updateUser(User user);
+
+    //get user by username
+    public User getUser(String username);
+
+    //delete user by id
+    public void deleteUser(Long userId);
 }

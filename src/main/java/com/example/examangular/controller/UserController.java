@@ -5,6 +5,7 @@ import com.example.examangular.model.User;
 import com.example.examangular.model.UserRole;
 import com.example.examangular.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {
 
+        System.out.println("called");
         user.setProfile("default.png");
-        System.out.println(user.getUserName());
+
+        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+
+        System.out.println(user.getUsername());
         Set<UserRole> roles=new HashSet<>();
 
         Role role=new Role();
@@ -46,10 +54,10 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId){
-        this.userService.deleteuser(userId);
+        this.userService.deleteUser(userId);
     }
-    @PutMapping("/update")
-    public User updateUser(@RequestBody User user){
-       return this.userService.updateUser(user);
-    }
+//    @PutMapping("/update")
+//    public User updateUser(@RequestBody User user){
+//       return this.userService.updateUser(user);
+//    }
 }

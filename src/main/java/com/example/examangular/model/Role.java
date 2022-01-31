@@ -5,15 +5,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="Roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
     private Long roleId;
     private String roleName;
 
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "role")
     private Set<UserRole> userRoles=new HashSet<>();
+
+
+    public Role() {
+    }
+
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
 
     public Role(Long roleId, String roleName) {
         this.roleId = roleId;
@@ -34,8 +48,5 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
-    }
-
-    public Role() {
     }
 }

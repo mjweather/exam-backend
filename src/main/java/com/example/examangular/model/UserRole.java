@@ -2,15 +2,14 @@ package com.example.examangular.model;
 
 import javax.persistence.*;
 
-import com.example.examangular.model.User;
-
 @Entity
 public class UserRole {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userRoleId;
 
-    //mapping
+    //user
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
